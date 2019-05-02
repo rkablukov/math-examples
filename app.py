@@ -1,5 +1,6 @@
 import random
-from flask import Flask, render_template, url_for, flash, request, Markup
+from datetime import datetime
+from flask import Flask, render_template, url_for, flash, request, Markup, make_response
 from forms import QuestionForm
 
 
@@ -21,19 +22,34 @@ def get_new_question():
 
 @app.route('/', methods=['GET', 'POST'])
 def home():
+    n_right_answers = int(request.cookies.get('n_right_answers', 0))
+    n_wrong_answers = int(request.cookies.get('n_wrong_answers', 0))
+    last_answer_date = request.cookies.get('last_answer_date')
+    now = datetime.now().strftime("%Y-%m-%d")
+    if now != last_answer_date:
+        n_right_answers = 0
+        n_wrong_answers = 0
+    last_answer_date = now
+
     form = QuestionForm()
     if form.validate_on_submit():
         if form.answer.data == int(form.right_answer.data):
             flash(f"Правильно! {form.question.data} = {form.answer.data}", 'success')
+            n_right_answers += 1
         else:
             flash(Markup(f"Ошибка! {form.question.data} = <strike>{form.answer.data}</strike> {form.right_answer.data}"), 'danger')
+            n_wrong_answers += 1
         form = get_new_question()
     elif request.method == 'GET':
         form = get_new_question()
     else:
         flash('В ответе должно быть введено число!', 'danger')
-    
-    return render_template('home.html', form=form)
+
+    response = make_response(render_template('home.html', form=form, n_right_answers=n_right_answers, n_wrong_answers=n_wrong_answers))
+    response.set_cookie('n_right_answers', str(n_right_answers))
+    response.set_cookie('n_wrong_answers', str(n_wrong_answers))
+    response.set_cookie('last_answer_date', last_answer_date)
+    return response
 
 
 if __name__ == '__main__':

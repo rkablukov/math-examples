@@ -1,5 +1,6 @@
 from flask_wtf import FlaskForm
-from wtforms import IntegerField, HiddenField, SubmitField
+from wtforms import HiddenField, SubmitField
+from wtforms.fields.html5 import IntegerField
 
 
 class QuestionForm(FlaskForm):

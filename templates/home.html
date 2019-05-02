@@ -9,14 +9,14 @@
             <div class="form-group">
                 {{ form.answer.label(class="form-control-label") }}
                 {% if form.answer.errors %}
-                {{ form.answer(class="form-control form-control-lg is-invalid") }}
-                <div class="invalid-feedback">
-                    {% for error in form.answer.errors %}
-                    <span>{{ error }}</span>
-                    {% endfor %}
-                </div>
+                    {{ form.answer(class="form-control form-control-lg is-invalid") }}
+                    <div class="invalid-feedback">
+                        {% for error in form.answer.errors %}
+                            <span>{{ error }}</span>
+                        {% endfor %}
+                    </div>
                 {% else %}
-                {{ form.answer(class="form-control form-control-lg") }}
+                    {{ form.answer(class="form-control form-control-lg") }}
                 {% endif %}
             </div>
         </fieldset>
@@ -24,5 +24,8 @@
             {{ form.submit(class="btn btn-outline-info") }}
         </div>
     </form>
+
+    <span class="badge badge-success">Правильно {{n_right_answers}}</span>
+    <span class="badge badge-danger">Неправильно {{n_wrong_answers}}</span>
 </div>
 {% endblock content %}
