@@ -45,7 +45,11 @@ def home():
     else:
         flash('В ответе должно быть введено число!', 'danger')
 
-    response = make_response(render_template('home.html', form=form, n_right_answers=n_right_answers, n_wrong_answers=n_wrong_answers))
+    image_file = None
+    if n_right_answers + n_wrong_answers >= 30:
+        image_file = url_for('static', filename='good_job_pics/' + str(datetime.now().weekday()) + '.jpg')
+
+    response = make_response(render_template('home.html', form=form, n_right_answers=n_right_answers, n_wrong_answers=n_wrong_answers, image_file=image_file))
     response.set_cookie('n_right_answers', str(n_right_answers))
     response.set_cookie('n_wrong_answers', str(n_wrong_answers))
     response.set_cookie('last_answer_date', last_answer_date)

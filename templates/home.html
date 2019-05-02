@@ -27,5 +27,11 @@
 
     <span class="badge badge-success">Правильно {{n_right_answers}}</span>
     <span class="badge badge-danger">Неправильно {{n_wrong_answers}}</span>
+
 </div>
+
+{% if image_file %}
+    <img src="{{image_file}}" class="img-fluid mt-3" alt="Отличная работа, приятель!">
+{% endif %}
+
 {% endblock content %}
