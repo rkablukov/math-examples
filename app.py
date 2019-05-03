@@ -37,7 +37,8 @@ def home():
         request.cookies.get('n_right_answers_best_result', 30))
     now = datetime.now().strftime("%Y-%m-%d")
     if now != last_answer_date:
-        n_right_answers_best_result = n_right_answers
+        if n_right_answers > n_right_answers_best_result:
+            n_right_answers_best_result = n_right_answers
         n_right_answers = 0
         n_wrong_answers = 0
     last_answer_date = now
