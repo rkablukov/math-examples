@@ -7,7 +7,7 @@ from forms import QuestionForm
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = '634a3025bfda715e26133b9fcfbe2b93'
-app.config['ENABLE_MULTIPLICATION'] = os.environ.get('ENABLE_MULTIPLICATION') or False
+app.config['ENABLE_MULTIPLICATION'] = str(os.environ.get('ENABLE_MULTIPLICATION')).lower() == 'TRUE'
 
 
 def get_new_question():
