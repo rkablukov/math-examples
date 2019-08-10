@@ -21,7 +21,7 @@ def get_new_question():
         sint = random.randint(1, 9)
     else:
         fint = random.randint(0, 99)
-        sint = random.randint(0, 100-fint if sign == '+' else fint)
+        sint = random.randint(0, 100 - fint if sign == '+' else fint)
     form = QuestionForm(formdata=None)
     form.question.data = f"{fint} {sign} {sint}"
     form.right_answer.data = eval(form.question.data)
