@@ -20,8 +20,8 @@ def get_new_question():
         fint = random.randint(0, 9)
         sint = random.randint(0, 9)
     else:
-        fint = random.randint(0, 20)
-        sint = random.randint(0, 20 if sign == '+' else fint)
+        fint = random.randint(0, 99)
+        sint = random.randint(0, 99 if sign == '+' else fint)
     form = QuestionForm(formdata=None)
     form.question.data = f"{fint} {sign} {sint}"
     form.right_answer.data = eval(form.question.data)
