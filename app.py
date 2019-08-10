@@ -17,11 +17,11 @@ def get_new_question():
     nsign = random.randint(1, 2 + app.config['ENABLE_MULTIPLICATION'])
     sign = '+' if nsign == 1 else '-' if nsign == 2 else '*'
     if sign == '*':
-        fint = random.randint(0, 9)
-        sint = random.randint(0, 9)
+        fint = random.randint(1, 9)
+        sint = random.randint(1, 9)
     else:
         fint = random.randint(0, 99)
-        sint = random.randint(0, 99 if sign == '+' else fint)
+        sint = random.randint(0, 100-fint if sign == '+' else fint)
     form = QuestionForm(formdata=None)
     form.question.data = f"{fint} {sign} {sint}"
     form.right_answer.data = eval(form.question.data)
