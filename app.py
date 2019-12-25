@@ -6,7 +6,7 @@ from forms import QuestionForm
 
 
 app = Flask(__name__)
-app.config['SECRET_KEY'] = '634a3025bfda715e26133b9fcfbe2b93'
+app.config['SECRET_KEY'] = os.urandom(24)
 app.config['ENABLE_MULTIPLICATION'] = str(
     os.environ.get('ENABLE_MULTIPLICATION')).lower() == 'true'
 
